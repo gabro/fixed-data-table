@@ -37,6 +37,59 @@ var ResizeExample = React.createClass({
     this.forceUpdate(); // don't do this, use a store and put into this.state!
   },
 
+  componentDidMount() {
+    setInterval(this.handleSort, 1000);
+  },
+
+  getInitialState() {
+    var columns = [
+         <Column
+          dataKey="firstName"
+          fixed={true}
+          label="First Name"
+          width={columnWidths['firstName']}
+          isResizable={true}
+        />,
+        <Column
+          label="Last Name"
+          dataKey="lastName"
+          width={columnWidths['lastName']}
+          isResizable={true}
+        />,
+        <Column
+          label="Company"
+          dataKey="companyName"
+          width={columnWidths['companyName']}
+          isResizable={true}
+        />,
+        <Column
+          label="Sentence"
+          dataKey="sentence"
+          width={columnWidths['sentence']}
+          isResizable={true}
+        />,
+       ];
+    return {columns};
+  },
+
+  shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+  },
+
+  handleSort() {
+    var columns = this.state.columns;
+    console.log(columns);
+    this.setState({
+      columns: this.shuffleArray(columns)
+    });
+  },
+
   render() {
     var controlledScrolling =
       this.props.left !== undefined || this.props.top !== undefined;
@@ -56,31 +109,7 @@ var ResizeExample = React.createClass({
         overflowY={controlledScrolling ? "hidden" : "auto"}
         isColumnResizing={isColumnResizing}
         onColumnResizeEndCallback={this._onColumnResizeEndCallback}>
-        <Column
-          dataKey="firstName"
-          fixed={true}
-          label="First Name"
-          width={columnWidths['firstName']}
-          isResizable={true}
-        />
-        <Column
-          label="Last Name"
-          dataKey="lastName"
-          width={columnWidths['lastName']}
-          isResizable={true}
-        />
-        <Column
-          label="Company"
-          dataKey="companyName"
-          width={columnWidths['companyName']}
-          isResizable={true}
-        />
-        <Column
-          label="Sentence"
-          dataKey="sentence"
-          width={columnWidths['sentence']}
-          isResizable={true}
-        />
+        {this.state.columns}
       </Table>
     );
   }
