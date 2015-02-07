@@ -13,7 +13,7 @@ var ColumnGroupAPIPage = require('./docs/ColumnGroupAPIPage');
 var ExamplesPage = require('./examples/ExamplesPage');
 var React = require('react');
 
-require('./images/favicon.png');
+var favIconSrc = require('./images/favicon.png');
 
 var APIPages = Constants.APIPages;
 var ExamplePages = Constants.ExamplePages;
@@ -63,7 +63,7 @@ var IndexPage = React.createClass({
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
           <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css" />
           <link rel="stylesheet" type="text/css" href={this.props.files['main.css']} />
-          <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+          <link rel="shortcut icon" type="image/png" href={favIconSrc} />
           <base target="_blank" />
         </head>
         <body>
